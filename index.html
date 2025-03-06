@@ -1,94 +1,179 @@
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    function getRandomItem(arr) {
-        return arr[Math.floor(Math.random() * arr.length)];
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mitzvah Note Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 40px; }
+        #mitzvah-note { margin-top: 20px; padding: 15px; border: 1px solid #ccc; display: none; }
+        button { padding: 10px; font-size: 16px; cursor: pointer; margin: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Mitzvah Note Generator</h2>
+    
+    <label for="child_name">Child's Name:</label>
+    <input type="text" id="child_name" required>
+    
+    <label for="tone">Tone:</label>
+    <select id="tone">
+        <option value="Modern Orthodox">Modern Orthodox</option>
+        <option value="Standard">Standard</option>
+        <option value="Yeshivish">Yeshivish</option>
+        <option value="Neturei Karta">Neturei Karta</option>
+        <option value="Victorian Era">Victorian Era</option>
+    </select>
+    
+    <button onclick="generateNote()">Generate Mitzvah Note</button>
+    
+    <div id="mitzvah-note"></div>
 
-    const mitzvahActions = {
-        "Modern Orthodox": {
-            "Honoring parents": [
-                "didn’t roll their eyes when their father told an embarrassing Dad Joke",
-                "paused their TikTok to answer mommy’s question",
-                "pretended to listen when dad explained how high-yield savings accounts work"
-            ],
-            "Giving tzedakah": [
-                "donated some of their crypto to charity",
-                "planted a tree for Israel",
-                "gave a dollar to tzedakah", 
-                "helped a friend in need", 
-                "donated their old toys to charity"
-            ],
-            "Keeping Shabbat": [
-                "didn't turn on their phone until after Havdalah",
-                "DVR'd the big game and waited until Shabbat was over to watch it"
-            ],
-            "Hashavat Aveidah": [
-                "returned a lost puppy",
-                "found a lost pencil and gave it back", 
-                "returned a missing glove to a classmate"
-            ],
-            "Bal Tashchit": [
-                "only took one ketchup packet instead of hoarding an entire handful",
-                "ate their entire plate of food… except for the vegetables, which don’t count",
-                "used both sides of the paper instead of just one like a savage"
-            ]
-        },
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            function getRandomItem(arr) {
+                return arr[Math.floor(Math.random() * arr.length)];
+            }
 
-        "Standard": {
-            "Honoring parents": [
-                "cleared the dinner table without being asked",
-                "helped their mother carry in the groceries without throwing a fit",
-                "gave their father a hug BEFORE asking for money"
-            ],
-            "Giving tzedakah": [
-                "put a quarter in the tzedakah box and felt like a big gvir",
-                "gave a dollar to tzedakah", 
-                "helped a friend in need", 
-                "donated their old toys"
-            ],
-            "Hashavas Aveidah": [
-                "returned a lost puppy",
-                "found a lost pencil and gave it back", 
-                "returned a missing glove to a classmate"
-            ]
-        }
-    };
+            const mitzvahActions = {
+                "Modern Orthodox": {
+                    "Honoring parents": [
+                        "didn’t roll their eyes when their father told an embarrassing Dad Joke",
+                        "paused their TikTok to answer mommy’s question",
+                        "pretended to listen when dad explained how high-yield savings accounts work"
+                    ],
+                    "Giving tzedakah": [
+                        "donated some of their crypto to charity",
+                        "planted a tree for Israel",
+                        "gave a dollar to tzedakah", 
+                        "helped a friend in need", 
+                        "donated their old toys to charity"
+                    ],
+                    "Keeping Shabbat": [
+                        "didn't turn on their phone until after Havdalah",
+                        "DVR'd the big game and waited until Shabbat was over to watch it"
+                    ],
+                    "Hashavat Aveidah": [
+                        "returned a lost puppy",
+                        "found a lost pencil and gave it back", 
+                        "returned a missing glove to a classmate"
+                    ],
+                    "Bal Tashchit": [
+                        "only took one ketchup packet instead of hoarding an entire handful",
+                        "ate their entire plate of food… except for the vegetables, which don’t count",
+                        "used both sides of the paper instead of just one like a savage"
+                    ]
+                },
 
-    const templates = {
-        "Modern Orthodox": [
-            "Dear Morah, {child} performed the mitzvah of {mitzvah} by {action}. What a role model!"
-        ],
-        "Standard": [
-            "Dear Morah, {child} did an incredible mitzvah today! They engaged in {mitzvah} by {action}."
-        ]
-    };
+                "Standard": {
+                    "Honoring parents": [
+                        "cleared the dinner table without being asked",
+                        "helped their mother carry in the groceries without throwing a fit",
+                        "gave their father a hug BEFORE asking for money"
+                    ],
+                    "Giving tzedakah": [
+                        "put a quarter in the tzedakah box and felt like a big gvir",
+                        "gave a dollar to tzedakah", 
+                        "helped a friend in need", 
+                        "donated their old toys"
+                    ],
+                    "Hashavas Aveidah": [
+                        "returned a lost puppy",
+                        "found a lost pencil and gave it back", 
+                        "returned a missing glove to a classmate"
+                    ]
+                },
 
-    window.generateNote = function () {
-        let childName = document.getElementById("child_name").value.trim();
-        let tone = document.getElementById("tone").value;
+                "Yeshivish": {
+                    "Learning Torah": [
+                        "finished Shas twice over Shabbos, with Acharonim",
+                        "reviewed the entire Parsha with Rashi, Onkelos, Meforshim, v’chulu... twice"
+                    ],
+                    "Davening": [
+                        "shuckled so hard during Shemonah Esrei their hat flew off daled tefachim",
+                        "yelled out YAALEH VEYAVO the loudest even though it wasn't Rosh Chodesh",
+                        "had so much kavanah they got a migraine",
+                        "were the last one to finish Shemonah Esrei in the entire shul"
+                    ],
+                    "Not Lending Money with Ribis": [
+                        "lent their friend a dollar and didn’t charge interest… even though they wanted to",
+                        "loaned their sibling a toy without requiring collateral",
+                        "didn’t ask for payment when lending a pen, despite knowing they'd never get it back"
+                    ]
+                },
 
-        if (!childName) {
-            alert("Please enter a child's name!");
-            return;
-        }
+                "Neturei Karta": {
+                    "Shiluach HaKan": [
+                        "sent away a mother pigeon and yelled TZIYOINI at it"
+                    ],
+                    "Bal Tashchis": [
+                        "only used one match to burn an entire Israeli flag",
+                        "used both sides of their anti-Israel poster at the pro-Hamas rally"
+                    ],
+                    "Hashavas Aveidah": [
+                        "returned a keffiyeh they found on the street",
+                        "yelled FREE PALESTINE",
+                        "offered to return the West Bank to a man on the street"
+                    ],
+                    "Tznius": [
+                        "burned their sibling’s sneakers for having blue and white shoelaces",
+                        "looked away from a Tziyoini (Reshaim Arurim) like they were the plague"
+                    ],
+                    "Shabbos": [
+                        "walked over 3 miles to get to an Israel protest on the other side of town",
+                        "yelled GEVALT for over 6 hours at Tziyoinim on the street",
+                        "went to a shiur by Peter Beinart",
+                        "refused to drink grape juice that was made in the Zionist-led Medinah of Palestine"
+                    ]
+                }
+            };
 
-        let toneSpecificMitzvos = mitzvahActions[tone];
+            const templates = {
+                "Modern Orthodox": [
+                    "Dear Morah, {child} performed the mitzvah of {mitzvah} by {action}. What a role model!"
+                ],
+                "Standard": [
+                    "Dear Morah, {child} did an incredible mitzvah today! They engaged in {mitzvah} by {action}."
+                ],
+                "Yeshivish": [
+                    "Dear Morah, {child} was mekayem {mitzvah} with great zerizus today!"
+                ],
+                "Neturei Karta": [
+                    "Dear Morah, {child} took a stand against the Tziyoinim (Reshaim Arurim) while performing {mitzvah} today!"
+                ],
+                "Victorian Era": [
+                    "Dearest Morah, {child} didst today fulfill the sacred mitzvah of {mitzvah} by {action}. Their conduct was most exemplary."
+                ]
+            };
 
-        if (!toneSpecificMitzvos || Object.keys(toneSpecificMitzvos).length === 0) {
-            alert("No mitzvot found for this tone.");
-            return;
-        }
+            window.generateNote = function () {
+                let childName = document.getElementById("child_name").value.trim();
+                let tone = document.getElementById("tone").value;
 
-        let mitzvah = getRandomItem(Object.keys(toneSpecificMitzvos));
-        let action = getRandomItem(toneSpecificMitzvos[mitzvah]);
-        let template = getRandomItem(templates[tone]);
+                if (!childName) {
+                    alert("Please enter a child's name!");
+                    return;
+                }
 
-        let mitzvahNote = template.replace("{child}", childName)
-                                  .replace("{mitzvah}", mitzvah.toLowerCase())
-                                  .replace("{action}", action);
+                let toneSpecificMitzvos = tone === "Victorian Era" ? mitzvahActions["Standard"] : mitzvahActions[tone];
 
-        document.getElementById("mitzvah-note").innerHTML = `<h3>Mitzvah Note:</h3><p>${mitzvahNote}</p>`;
-        document.getElementById("mitzvah-note").style.display = "block";
-    };
-});
-</script>
+                if (!toneSpecificMitzvos || Object.keys(toneSpecificMitzvos).length === 0) {
+                    alert("No mitzvot found for this tone.");
+                    return;
+                }
+
+                let mitzvah = getRandomItem(Object.keys(toneSpecificMitzvos));
+                let action = getRandomItem(toneSpecificMitzvos[mitzvah]);
+                let template = getRandomItem(templates[tone]);
+
+                let mitzvahNote = template.replace("{child}", childName)
+                                          .replace("{mitzvah}", mitzvah.toLowerCase())
+                                          .replace("{action}", action);
+
+                document.getElementById("mitzvah-note").innerHTML = `<h3>Mitzvah Note:</h3><p>${mitzvahNote}</p>`;
+                document.getElementById("mitzvah-note").style.display = "block";
+            };
+        });
+    </script>
+</body>
+</html>
