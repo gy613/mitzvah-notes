@@ -1,3 +1,4 @@
+<script>
 document.addEventListener("DOMContentLoaded", function () {
     function getRandomItem(arr) {
         return arr[Math.floor(Math.random() * arr.length)];
@@ -50,68 +51,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 "found a lost pencil and gave it back", 
                 "returned a missing glove to a classmate"
             ]
-        },
-
-        "Yeshivish": {
-            "Learning Torah": [
-                "finished Shas twice over Shabbos, with Acharonim",
-                "reviewed the entire Parsha with Rashi, Onkelos, Meforshim, v’chulu... twice"
-            ],
-            "Davening": [
-                "shuckled so hard during Shemonah Esrei their hat flew off daled tefachim",
-                "yelled out YAALEH VEYAVO the loudest even though it wasn't Rosh Chodesh",
-                "had so much kavanah they got a migraine",
-                "were the last one to finish Shemonah Esrei in the entire shul"
-            ],
-            "Not Lending Money with Ribis": [
-                "lent their friend a dollar and didn’t charge interest… even though they wanted to",
-                "loaned their sibling a toy without requiring collateral",
-                "didn’t ask for payment when lending a pen, despite knowing they'd never get it back"
-            ]
-        },
-
-        "Neturei Karta": {
-            "Shiluach HaKan": [
-                "sent away a mother pigeon and yelled TZIYOINI at it"
-            ],
-            "Bal Tashchis": [
-                "only used one match to burn an entire Israeli flag",
-                "used both sides of their anti-Israel poster at the pro-Hamas rally"
-            ],
-            "Hashavas Aveidah": [
-                "returned a keffiyeh they found on the street",
-                "yelled FREE PALESTINE",
-                "offered to return the West Bank to a man on the street"
-            ],
-            "Tznius": [
-                "burned their sibling’s sneakers for having blue and white shoelaces",
-                "looked away from a Tziyoini (Reshaim Arurim) like they were the plague"
-            ],
-            "Shabbos": [
-                "walked over 3 miles to get to an Israel protest on the other side of town",
-                "yelled GEVALT for over 6 hours at Tziyoinim on the street",
-                "went to a shiur by Peter Beinart",
-                "refused to drink grape juice that was made in the Zionist-led Medinah of Palestine"
-            ]
         }
     };
 
-    // Templates for different tones
     const templates = {
         "Modern Orthodox": [
             "Dear Morah, {child} performed the mitzvah of {mitzvah} by {action}. What a role model!"
         ],
         "Standard": [
             "Dear Morah, {child} did an incredible mitzvah today! They engaged in {mitzvah} by {action}."
-        ],
-        "Yeshivish": [
-            "Dear Morah, {child} was mekayem {mitzvah} with great zerizus today!"
-        ],
-        "Neturei Karta": [
-            "Dear Morah, {child} took a stand against the Tziyoinim (Reshaim Arurim) while performing {mitzvah} today!"
-        ],
-        "Victorian Era": [
-            "Dearest Morah, {child} didst today fulfill the sacred mitzvah of {mitzvah} by {action}. Their conduct was most exemplary."
         ]
     };
 
@@ -124,10 +72,8 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Ensure Victorian Era uses Standard mitzvot/actions
-        let toneSpecificMitzvos = tone === "Victorian Era" ? mitzvahActions["Standard"] : mitzvahActions[tone];
+        let toneSpecificMitzvos = mitzvahActions[tone];
 
-        // Check if tone has mitzvot to avoid errors
         if (!toneSpecificMitzvos || Object.keys(toneSpecificMitzvos).length === 0) {
             alert("No mitzvot found for this tone.");
             return;
@@ -145,4 +91,4 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("mitzvah-note").style.display = "block";
     };
 });
-
+</script>
