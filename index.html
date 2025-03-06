@@ -25,12 +25,16 @@
         <option value="Victorian Era">Victorian Era</option>
     </select>
     
-    <button onclick="generateNote()">Generate Mitzvah Note</button>
+    <button onclick="generateNote(// Increase and update the mitzvah counter
+mitzvahCount++;
+document.getElementById("note-count").textContent = mitzvahCount;
+)">Generate Mitzvah Note</button>
     
-    <div id="mitzvah-note"></div>
+    <div id="mitzvah-note"><div id="counter">Mitzvah Notes Generated: <span id="note-count">0</span></div>
+</div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function (let mitzvahCount = 0;) {
             function getRandomItem(arr) {
                 return arr[Math.floor(Math.random() * arr.length)];
             }
