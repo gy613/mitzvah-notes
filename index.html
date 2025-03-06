@@ -69,17 +69,66 @@
         ]
     };
 
-    function generateNote() {
-        let childName = document.getElementById("child_name").value;
-        let tone = document.getElementById("tone").value;
+   function generateNote() {
+    let childName = document.getElementById("child_name").value;
+    let tone = document.getElementById("tone").value;
+
+    if (!childName) {
+        alert("Please enter a child's name!");
+        return;
+    }
+
+    // Correctly match actions with mitzvot
+    const mitzvahActions = {
+        "Honoring parents": ["helped their parents set the table", "listened carefully when their parents spoke", "gave their parents a big hug"],
+        "Giving tzedakah": ["gave a dollar to tzedakah", "helped a friend in need", "donated their old toys to charity"],
+        "Returning a lost object": ["found a lost pencil and gave it back", "returned a missing glove to a classmate"],
+        "Not speaking Lashon Hara": ["avoided gossip during recess", "changed the topic when friends started speaking negatively about someone"],
+        "Parah Adumah": ["tried to find a real Parah Adumah but settled for a red cow emoji", "asked the rabbi to explain the laws of Parah Adumah"],
+        "Shiluach Hakan": ["sent away a mother bird before taking its eggs", "learned about the mitzvah and told their friends"],
+        "Not lending money with ribis": ["refused to charge their friend extra when lending money", "explained to a friend why interest is not allowed"],
+        "Eating matzah on Pesach": ["ate matzah on Pesach without complaining", "helped prepare the seder plate"],
+        "Tefillin": ["wore tefillin and only had to adjust the retzuos 17 times", "reminded their father to put on tefillin"],
+        "Keeping Shabbat": ["reminded the family about candle lighting", "helped set the table for Shabbat"]
+    };
+
+    let mitzvah = getRandomItem(Object.keys(mitzvahActions));
+    let action = getRandomItem(mitzvahActions[mitzvah]);
+
+    let template = getRandomItem(templates[tone]);
+
+    let mitzvahNote = template.replace("{child}", childName)
+                              .replace("{mitzvah}", mitzvah)
+                              .replace("{action}", action);
+
+    document.getElementById("mitzvah-note").innerHTML = `<h3>Mitzvah Note:</h3><p>${mitzvahNote}</p>`;
+    document.getElementById("mitzvah-note").style.display = "block";
+}
+
 
         if (!childName) {
             alert("Please enter a child's name!");
             return;
         }
 
-        let mitzvah = getRandomItem(mitzvot);
-        let action = getRandomItem(actions);
+        const mitzvahActions = {
+    "Honoring parents": ["helped their parents set the table", "listened carefully when their parents spoke", "gave their parents a big hug"],
+    "Giving tzedakah": ["gave a dollar to tzedakah", "helped a friend in need", "donated their old toys to charity"],
+    "Returning a lost object": ["found a lost pencil and gave it back", "returned a missing glove to a classmate"],
+    "Not speaking Lashon Hara": ["avoided gossip during recess", "changed the topic when friends started speaking negatively about someone"],
+    "Parah Adumah": ["tried to find a real Parah Adumah but settled for a red cow emoji", "asked the rabbi to explain the laws of Parah Adumah"],
+    "Shiluach Hakan": ["sent away a mother bird before taking its eggs", "learned about the mitzvah and told their friends"],
+    "Not lending money with ribis": ["refused to charge their friend extra when lending money", "explained to a friend why interest is not allowed"],
+    "Eating matzah on Pesach": ["ate matzah on Pesach without complaining", "helped prepare the seder plate"],
+    "Tefillin": ["wore tefillin and only had to adjust the retzuos 17 times", "reminded their father to put on tefillin"],
+    "Keeping Shabbat": ["reminded the family about candle lighting", "helped set the table for Shabbat"]
+};
+
+// Pick a random mitzvah
+let mitzvah = getRandomItem(Object.keys(mitzvahActions));
+// Pick a random action that matches the selected mitzvah
+let action = getRandomItem(mitzvahActions[mitzvah]);
+
         let template = getRandomItem(templates[tone]);
 
         let mitzvahNote = template.replace("{child}", childName)
