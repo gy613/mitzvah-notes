@@ -28,25 +28,65 @@
 
     <div id="mitzvah-note"></div>
 
-    <script>
-        function getRandomItem(arr) {
-            return arr[Math.floor(Math.random() * arr.length)];
+        <script>
+    function getRandomItem(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    const mitzvot = [
+        "Honoring parents", "Giving tzedakah", "Returning a lost object",
+        "Not speaking Lashon Hara", "Parah Adumah", "Shiluach Hakan",
+        "Not lending money with ribis", "Eating matzah on Pesach",
+        "Tefillin", "Keeping Shabbat"
+    ];
+
+    const actions = [
+        "helped their sibling clean up toys", "gave a dollar to tzedakah",
+        "returned a lost pencil", "refrained from speaking Lashon Hara for a full hour",
+        "tried to find a Parah Adumah but settled for a red cow emoji",
+        "sent away a mother bird before taking its eggs (and then got pecked by the bird)",
+        "refused to lend money with ribis, even though their friend said 'it's just a nickel!'",
+        "ate matzah on Pesach without complaining about how dry it was",
+        "wore tefillin and only had to adjust the retzuos 17 times",
+        "reminded the family about candle lighting"
+    ];
+
+    const templates = {
+        "Modern Orthodox": [
+            "Dear Morah, {child} performed the mitzvah of {mitzvah} by {action}. What a role model!"
+        ],
+        "Standard": [
+            "Dear Morah, {child} did an incredible mitzvah today! They engaged in {mitzvah} by {action}."
+        ],
+        "Yeshivish": [
+            "Dear Morah, {child} was mekayem {mitzvah} with great zerizus today!"
+        ],
+        "Neturei Karta": [
+            "Dear Morah, {child} took a stand against the Zionists (Reshaim Arurim) while performing {mitzvah} today!"
+        ],
+        "Victorian Era": [
+            "Dearest Governess, {child} didst today fulfill the sacred mitzvah of {mitzvah} by {action}. Their conduct was most exemplary."
+        ]
+    };
+
+    function generateNote() {
+        let childName = document.getElementById("child_name").value;
+        let tone = document.getElementById("tone").value;
+
+        if (!childName) {
+            alert("Please enter a child's name!");
+            return;
         }
 
-        const mitzvot = [
-            "Honoring parents", "Giving tzedakah", "Returning a lost object",
-            "Not speaking Lashon Hara", "Parah Adumah", "Shiluach Hakan",
-            "Not lending money with ribis", "Eating matzah on Pesach",
-            "Tefillin", "Keeping Shabbat"
-        ];
+        let mitzvah = getRandomItem(mitzvot);
+        let action = getRandomItem(actions);
+        let template = getRandomItem(templates[tone]);
 
-        const actions = [
-            "helped their sibling clean up toys", "gave a dollar to tzedakah",
-            "returned a lost pencil", "refrained from speaking Lashon Hara for a full hour",
-            "tried to find a Parah Adumah but settled for a red cow emoji",
-            "sent away a mother bird before taking its eggs (and then got pecked by the bird)",
-            "refused to lend money with ribis, even though their friend said 'it's just a nickel!'",
-            "ate matzah on Pesach without complaining about how dry it was",
-            "wore tefillin and only had to adjust the retzuos 17 times",
-            "reminded the family about candle lighting"
-      
+        let mitzvahNote = template.replace("{child}", childName)
+                                  .replace("{mitzvah}", mitzvah)
+                                  .replace("{action}", action);
+
+        document.getElementById("mitzvah-note").innerHTML = `<h3>Mitzvah Note:</h3><p>${mitzvahNote}</p>`;
+        document.getElementById("mitzvah-note").style.display = "block";
+    }
+</script>
