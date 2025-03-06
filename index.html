@@ -1,61 +1,101 @@
-function getRandomItem(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mitzvah Note Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 40px; }
+        #mitzvah-note { margin-top: 20px; padding: 15px; border: 1px solid #ccc; display: none; }
+        button { padding: 10px; font-size: 16px; cursor: pointer; margin-top: 10px; }
+        input, select { padding: 5px; font-size: 14px; margin: 5px; }
+    </style>
+</head>
+<body>
 
-// Mitzvot and matching actions (all grammatically correct)
-const mitzvahActions = {
-    "Honoring parents": ["helping their parents set the table", "listening carefully when their parents spoke", "giving their parents a big hug"],
-    "Giving tzedakah": ["giving a dollar to tzedakah", "helping a friend in need", "donating their old toys to charity"],
-    "Returning a lost object": ["finding a lost pencil and giving it back", "returning a missing glove to a classmate"],
-    "Not speaking Lashon Hara": ["refraining from gossip during recess", "changing the topic when friends started speaking negatively about someone"],
-    "Parah Adumah": ["trying to find a real Parah Adumah but settling for a red cow emoji", "asking the rabbi to explain the laws of Parah Adumah"],
-    "Shiluach Hakan": ["sending away a mother bird before taking its eggs", "learning about the mitzvah and telling their friends"],
-    "Not lending money with ribis": ["refusing to charge their friend extra when lending money", "explaining to a friend why interest is not allowed"],
-    "Eating matzah on Pesach": ["eating matzah on Pesach without complaining", "helping prepare the seder plate"],
-    "Tefillin": ["wearing tefillin and only having to adjust the retzuos 17 times", "reminding their father to put on tefillin"],
-    "Keeping Shabbat": ["reminding the family about candle lighting", "helping set the table for Shabbat"]
-};
+    <h2>Mitzvah Note Generator</h2>
 
-// Templates for different tones
-const templates = {
-    "Modern Orthodox": [
-        "Dear Morah, {child} performed the mitzvah of {mitzvah} by {action}. What a role model!"
-    ],
-    "Standard": [
-        "Dear Morah, {child} did an incredible mitzvah today! They engaged in {mitzvah} by {action}."
-    ],
-    "Yeshivish": [
-        "Dear Morah, {child} was mekayem {mitzvah} with great zerizus today!"
-    ],
-    "Neturei Karta": [
-        "Dear Morah, {child} took a stand against the Zionists (Reshaim Arurim) while performing {mitzvah} today!"
-    ],
-    "Victorian Era": [
-        "Dearest Governess, {child} didst today fulfill the sacred mitzvah of {mitzvah} by {action}. Their conduct was most exemplary."
-    ]
-};
+    <label for="child_name">Child's Name:</label>
+    <input type="text" id="child_name" required>
 
-// Function to generate a Mitzvah Note
-function generateNote() {
-    let childName = document.getElementById("child_name").value;
-    let tone = document.getElementById("tone").value;
+    <label for="tone">Tone:</label>
+    <select id="tone">
+        <option value="Modern Orthodox">Modern Orthodox</option>
+        <option value="Standard">Standard</option>
+        <option value="Yeshivish">Yeshivish</option>
+        <option value="Neturei Karta">Neturei Karta</option>
+        <option value="Victorian Era">Victorian Era</option>
+    </select>
 
-    if (!childName) {
-        alert("Please enter a child's name!");
-        return;
-    }
+    <button onclick="generateNote()">Generate Mitzvah Note</button>
 
-    // Ensure we select a correct action for the chosen mitzvah
-    let mitzvah = getRandomItem(Object.keys(mitzvahActions));
-    let action = getRandomItem(mitzvahActions[mitzvah]);
+    <div id="mitzvah-note"></div>
 
-    let template = getRandomItem(templates[tone]);
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            function getRandomItem(arr) {
+                return arr[Math.floor(Math.random() * arr.length)];
+            }
 
-    // Format the mitzvah name to lowercase for sentence flow
-    let mitzvahNote = template.replace("{child}", childName)
-                              .replace("{mitzvah}", mitzvah.toLowerCase())
-                              .replace("{action}", action);
+            // Mitzvot and matching actions (grammatically correct)
+            const mitzvahActions = {
+                "Honoring parents": ["helping their parents set the table", "listening carefully when their parents spoke", "giving their parents a big hug"],
+                "Giving tzedakah": ["giving a dollar to tzedakah", "helping a friend in need", "donating their old toys to charity"],
+                "Returning a lost object": ["finding a lost pencil and giving it back", "returning a missing glove to a classmate"],
+                "Not speaking Lashon Hara": ["refraining from gossip during recess", "changing the topic when friends started speaking negatively about someone"],
+                "Parah Adumah": ["trying to find a real Parah Adumah but settling for a red cow emoji", "asking the rabbi to explain the laws of Parah Adumah"],
+                "Shiluach Hakan": ["sending away a mother bird before taking its eggs", "learning about the mitzvah and telling their friends"],
+                "Not lending money with ribis": ["refusing to charge their friend extra when lending money", "explaining to a friend why interest is not allowed"],
+                "Eating matzah on Pesach": ["eating matzah on Pesach without complaining", "helping prepare the seder plate"],
+                "Tefillin": ["wearing tefillin and only having to adjust the retzuos 17 times", "reminding their father to put on tefillin"],
+                "Keeping Shabbat": ["reminding the family about candle lighting", "helping set the table for Shabbat"]
+            };
 
-    document.getElementById("mitzvah-note").innerHTML = `<h3>Mitzvah Note:</h3><p>${mitzvahNote}</p>`;
-    document.getElementById("mitzvah-note").style.display = "block";
-}
+            // Templates for different tones
+            const templates = {
+                "Modern Orthodox": [
+                    "Dear Morah, {child} performed the mitzvah of {mitzvah} by {action}. What a role model!"
+                ],
+                "Standard": [
+                    "Dear Morah, {child} did an incredible mitzvah today! They engaged in {mitzvah} by {action}."
+                ],
+                "Yeshivish": [
+                    "Dear Morah, {child} was mekayem {mitzvah} with great zerizus today!"
+                ],
+                "Neturei Karta": [
+                    "Dear Morah, {child} took a stand against the Zionists (Reshaim Arurim) while performing {mitzvah} today!"
+                ],
+                "Victorian Era": [
+                    "Dearest Governess, {child} didst today fulfill the sacred mitzvah of {mitzvah} by {action}. Their conduct was most exemplary."
+                ]
+            };
+
+            // Function to generate a Mitzvah Note
+            window.generateNote = function () {
+                let childName = document.getElementById("child_name").value.trim();
+                let tone = document.getElementById("tone").value;
+
+                if (!childName) {
+                    alert("Please enter a child's name!");
+                    return;
+                }
+
+                // Ensure we select a correct action for the chosen mitzvah
+                let mitzvah = getRandomItem(Object.keys(mitzvahActions));
+                let action = getRandomItem(mitzvahActions[mitzvah]);
+
+                let template = getRandomItem(templates[tone]);
+
+                // Format the mitzvah name to lowercase for sentence flow
+                let mitzvahNote = template.replace("{child}", childName)
+                                          .replace("{mitzvah}", mitzvah.toLowerCase())
+                                          .replace("{action}", action);
+
+                document.getElementById("mitzvah-note").innerHTML = `<h3>Mitzvah Note:</h3><p>${mitzvahNote}</p>`;
+                document.getElementById("mitzvah-note").style.display = "block";
+            };
+        });
+    </script>
+
+</body>
+</html>
