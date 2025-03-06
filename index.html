@@ -93,11 +93,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 "went to a shiur by Peter Beinart",
                 "refused to drink grape juice that was made in the Zionist-led Medinah of Palestine"
             ]
-        },
-
-        "Victorian Era": {} // Uses the same mitzvos and actions as Standard
+        }
     };
 
+    // Templates for different tones
     const templates = {
         "Modern Orthodox": [
             "Dear Morah, {child} performed the mitzvah of {mitzvah} by {action}. What a role model!"
@@ -125,8 +124,14 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Victorian Era should use Standard mitzvot/actions
+        // Ensure Victorian Era uses Standard mitzvot/actions
         let toneSpecificMitzvos = tone === "Victorian Era" ? mitzvahActions["Standard"] : mitzvahActions[tone];
+
+        // Check if tone has mitzvot to avoid errors
+        if (!toneSpecificMitzvos || Object.keys(toneSpecificMitzvos).length === 0) {
+            alert("No mitzvot found for this tone.");
+            return;
+        }
 
         let mitzvah = getRandomItem(Object.keys(toneSpecificMitzvos));
         let action = getRandomItem(toneSpecificMitzvos[mitzvah]);
@@ -140,3 +145,4 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("mitzvah-note").style.display = "block";
     };
 });
+
